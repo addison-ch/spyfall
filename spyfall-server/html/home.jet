@@ -18,6 +18,34 @@
     <title>Document</title>
 </head>
 <body>
-    Hi
+    <div>
+        Players
+    </div>
 </body>
+
+<script>
+    let socket = null;
+
+    document.addEventListener("DOMContentLoaded", function(){
+        socket = new WebSocket("ws://localhost:8080/ws");
+
+        socket.onopen = () => {
+            console.log("Successfully connected to ws");
+        }
+
+        socket.onclose = () => {
+            console.log("Connection closed");
+        }
+
+        socket.onerror =  error => {
+            console.log("there was an error");
+        }
+
+        socket.onmessage = msg => {
+            console.log(msg);
+            let j = JSON.parse(msg.data);
+            console.log(j)
+        }
+    })
+</script>
 </html>
